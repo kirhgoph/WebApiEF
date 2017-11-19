@@ -5,6 +5,7 @@ using System.Data.Entity;
 using Moq;
 using System.Linq;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace WebApiEF.Tests
 {
@@ -97,6 +98,7 @@ namespace WebApiEF.Tests
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext)
         {
+            _client = new HttpClient();
             _guid = new Guid("AAAAAAAA-1111-2222-3333-000000000001");
             _correctSample1 = new SyncProfileRequest()
             {
@@ -135,6 +137,7 @@ namespace WebApiEF.Tests
             _mockSet = new Mock<DbSet<MyAccountRequestBase>>().SetupData(data, linqQuery);
         }
 
+        static HttpClient _client;
         static SyncProfileRequest _correctSample1;
         static SyncProfileRequest _correctSample2;
         static Guid _guid;
